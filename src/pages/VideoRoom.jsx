@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { MessageSquare, Users } from "lucide-react";
 import { useConference } from "../hooks/useConference";
 import { Video } from "../components/Video";
 
 import { startCase } from "lodash";
+import { ParticipantsList } from "../components/ParticipantsList";
 
 function VideoRoom() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -13,6 +15,8 @@ function VideoRoom() {
   const navigate = useNavigate();
 
   const [roomInfo, setRoomInfo] = useState(null);
+  const [showParticipants, setShowParticipants] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   const currentUser = location.state?.isGuest
     ? { id: `guest_${Date.now()}`, username: location.state.guestName, isGuest: true }
@@ -50,9 +54,21 @@ function VideoRoom() {
             {participants.length} participant{participants.length !== 1 ? "s" : ""}
           </span>
         </div>
-        <button onClick={() => navigate("/")} className="leave-btn">
-          Leave Room
-        </button>
+
+        <div className="video-room-buttons">
+          <button
+            onClick={() => setShowParticipants(!showParticipants)}
+            className="video-room-action"
+          >
+            <Users />
+          </button>
+          <button onClick={() => setShowChat(!showChat)} className="video-room-action">
+            <MessageSquare />
+          </button>
+          <button onClick={() => navigate("/")} className="leave-btn">
+            Leave Room
+          </button>
+        </div>
       </div>
 
       <div className="video-container">
@@ -76,6 +92,18 @@ function VideoRoom() {
             />
           </div>
         ))}
+
+        {showParticipants && (
+          <ParticipantsList
+            room={roomInfo}
+            participants={participants}
+            onClose={() => setShowParticipants(false)}
+          />
+        )}
+
+        {/* {showChat && (
+          <Chat room={room} onClose={() => setShowChat(false)} socket={socketRef.current} />
+        )} */}
       </div>
 
       <div className="controls">
