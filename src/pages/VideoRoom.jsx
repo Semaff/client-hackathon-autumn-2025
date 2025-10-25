@@ -6,6 +6,7 @@ import { Video } from "../components/Video";
 
 import { startCase } from "lodash";
 import { ParticipantsList } from "../components/ParticipantsList";
+import { Chat } from "../components/Chat";
 
 function VideoRoom() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -43,7 +44,7 @@ function VideoRoom() {
     }
   };
 
-  const { camOff, isMuted, participants, hasVideo, toggleCam, toggleMute } = useConference();
+  const { camOff, isMuted, participants, hasVideo, toggleCam, toggleMute, ws } = useConference();
 
   return (
     <div className="video-room">
@@ -101,9 +102,14 @@ function VideoRoom() {
           />
         )}
 
-        {/* {showChat && (
-          <Chat room={room} onClose={() => setShowChat(false)} socket={socketRef.current} />
-        )} */}
+        {showChat && (
+          <Chat
+            room={roomInfo}
+            onClose={() => setShowChat(false)}
+            socket={ws.current}
+            user={currentUser}
+          />
+        )}
       </div>
 
       <div className="controls">

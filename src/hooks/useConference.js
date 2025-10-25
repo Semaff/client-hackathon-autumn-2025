@@ -122,7 +122,7 @@ export function useConference() {
       console.log("🎤 Mic ready, no camera");
     }
 
-    setParticipants([{ id: "me", stream: localStream.current }]);
+    setParticipants([{ id: "me", username: "Me", stream: localStream.current }]);
 
     readyQueue.current.forEach((fn) => fn());
     readyQueue.current = [];
@@ -206,6 +206,6 @@ export function useConference() {
     setCamOff((prev) => !prev);
   };
 
-  return { participants, toggleMute, toggleCam, isMuted, camOff, hasVideo };
+  return { participants, toggleMute, toggleCam, isMuted, camOff, hasVideo, ws };
 }
 
