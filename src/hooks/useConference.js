@@ -206,6 +206,6 @@ export function useConference() {
     setCamOff((prev) => !prev);
   };
 
-  return { participants, toggleMute, toggleCam, isMuted, camOff };
+  return { participants, toggleMute, toggleCam, isMuted, camOff, hasVideo };
 }
 

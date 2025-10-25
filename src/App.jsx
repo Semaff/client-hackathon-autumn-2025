@@ -1,39 +1,62 @@
-import { Video } from "./components/Video";
-import { useConference } from "./hooks/useConference";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import VideoRoom from "./pages/VideoRoom";
+import GuestJoin from "./pages/GuestJoin";
 
-export default function App() {
-  const { toggleMute, toggleCam, isMuted, camOff, participants } = useConference();
+function App() {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleLogin = (userData, userToken) => {
+    setUser(userData);
+    setToken(userToken);
+    localStorage.setItem("token", userToken);
+    localStorage.setItem("user", JSON.stringify(userData));
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>🎥 Audio+Video Call (WebRTC)</h2>
-      <button onClick={toggleMute}>{isMuted ? "Вкл микрофон" : "Выкл микрофон"}</button>
-      <button onClick={toggleCam}>{camOff ? "Вкл камеру" : "Выкл камеру"}</button>
-      <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 10 }}>
-        {participants.map((p) => (
-          <div
-            key={p.id}
-            className="participant"
-            style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-          >
-            <div>{p.id === "me" ? "Я" : `Участник: ${p.id}`}</div>
-            <Video
-              id={`video-${p.id}`}
-              autoPlay
-              playsInline
-              muted={p.id === "me"}
-              srcObject={p.stream}
-              style={{
-                width: 200,
-                border: "2px solid gray",
-                borderRadius: 4,
-                background: "black",
-              }}
+    <Router>
+      <div className="app-container">
+        <Routes>
+          {user ? (
+            <Route
+              path="/dashboard"
+              element={<Dashboard user={user} token={token} onLogout={handleLogout} />}
             />
-          </div>
-        ))}
+          ) : (
+            <>
+              <Route path="/login" element={<Login onLogin={handleLogin} />} />
+              <Route path="/register" element={<Register onRegister={handleLogin} />} />
+            </>
+          )}
+
+          <Route path="/room/:roomId" element={<VideoRoom />} />
+          <Route path="/guest/:roomId" element={<GuestJoin />} />
+          <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
+
+export default App;
 

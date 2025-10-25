@@ -1,0 +1,112 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+function Dashboard({ user, token, onLogout }) {
+  const [roomName, setRoomName] = useState("");
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  const fetchRooms = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/users/${user.id}`);
+      const data = await response.json();
+      if (data.success) {
+        setRooms(data.rooms);
+      }
+    } catch (err) {
+      console.error("Failed to fetch rooms:", err);
+    }
+  };
+
+  const handleCreateRoom = async (e) => {
+    e.preventDefault();
+    if (!roomName.trim()) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: roomName, token }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setRoomName("");
+        fetchRooms();
+        navigate(`/room/${data.room.id}`);
+      }
+    } catch (err) {
+      console.error("Failed to create room:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyRoomLink = (roomId) => {
+    const link = `${window.location.origin}/guest/${roomId}`;
+    navigator.clipboard.writeText(link);
+    alert("Room link copied to clipboard!");
+  };
+
+  return (
+    <div className="dashboard">
+      <div className="dashboard-header">
+        <h1>Welcome, {user.username}!</h1>
+        <button onClick={onLogout} className="btn-secondary">
+          Logout
+        </button>
+      </div>
+
+      <div className="create-room-section">
+        <h2>Create New Room</h2>
+        <form onSubmit={handleCreateRoom} className="create-room-form">
+          <input
+            type="text"
+            placeholder="Enter room name..."
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+            disabled={loading}
+          />
+          <button type="submit" className="btn" disabled={loading}>
+            {loading ? "Creating..." : "Create Room"}
+          </button>
+        </form>
+      </div>
+
+      <div className="rooms-list">
+        <h2>Your Rooms</h2>
+        {rooms.length === 0 ? (
+          <p style={{ color: "#999" }}>No rooms yet. Create your first room!</p>
+        ) : (
+          rooms.map((room) => (
+            <div key={room.id} className="room-item">
+              <div className="room-info">
+                <h3>{room.name}</h3>
+                <p>Created: {new Date(room.created_at).toLocaleDateString()}</p>
+              </div>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button onClick={() => copyRoomLink(room.id)} className="btn-secondary">
+                  Copy Link
+                </button>
+                <a href={`/room/${room.id}`} className="room-link">
+                  Join Room
+                </a>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
+
