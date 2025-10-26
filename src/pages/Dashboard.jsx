@@ -53,7 +53,8 @@ function Dashboard({ user, setUser, token, onLogout }) {
   };
 
   const copyRoomLink = (roomId) => {
-    const link = `${window.location.origin}/guest/${roomId}`;
+    const baseUrl = window.location.origin + window.location.pathname;
+    const link = `${baseUrl}#/guest/${roomId}`;
     navigator.clipboard.writeText(link);
     alert("Ссылка скопирована!");
   };
@@ -105,7 +106,7 @@ function Dashboard({ user, setUser, token, onLogout }) {
                 <button onClick={() => copyRoomLink(room.id)} className="btn-secondary">
                   Скопировать ссылку
                 </button>
-                <a href={`/room/${room.id}`} className="room-link">
+                <a href={`#/room/${room.id}`} className="room-link">
                   Присоединиться
                 </a>
               </div>
