@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Profile } from "../components/Profile";
 
-function Dashboard({ user, token, onLogout }) {
+function Dashboard({ user, setUser, token, onLogout }) {
   const [roomName, setRoomName] = useState("");
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,10 +62,17 @@ function Dashboard({ user, token, onLogout }) {
     <div className="dashboard">
       <div className="dashboard-header">
         <h1>Welcome, {user.username}!</h1>
-        <button onClick={onLogout} className="btn-secondary">
-          Logout
-        </button>
+        <div className="dashboard-header-btns">
+          <button onClick={() => setShowProfile(!showProfile)} className="btn --not-w-full">Профиль</button>
+          <button onClick={onLogout} className="btn-secondary">
+            Logout
+          </button>
+        </div>
       </div>
+
+      {showProfile && (
+        <Profile user={user} setUser={setUser} onClose={() => setShowProfile(false)} />
+      )}
 
       <div className="create-room-section">
         <h2>Create New Room</h2>

@@ -40,7 +40,7 @@ function App() {
           {user ? (
             <Route
               path="/dashboard"
-              element={<Dashboard user={user} token={token} onLogout={handleLogout} />}
+              element={<Dashboard user={user} setUser={setUser} token={token} onLogout={handleLogout} />}
             />
           ) : (
             <>
