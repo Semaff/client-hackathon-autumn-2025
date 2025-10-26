@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import VideoRoom from "./pages/VideoRoom";
 import GuestJoin from "./pages/GuestJoin";
+import { WelcomeOverlay } from "./components/WelcomeOverlay";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,6 +37,9 @@ function App() {
   return (
     <HashRouter>
       <div className="app-container">
+        {/* 👇 Welcome Overlay поверх всего приложения */}
+        <WelcomeOverlay />
+
         <Routes>
           {user ? (
             <Route
@@ -59,4 +63,3 @@ function App() {
 }
 
 export default App;
-
