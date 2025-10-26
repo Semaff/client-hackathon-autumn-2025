@@ -1016,8 +1016,8 @@ body {
   left: 0;
   right: 0;
   height: 64px;
-  background: rgba(30, 30, 30, 0.9);
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(54, 52, 52, 0.9) 100%);
+  background: RGBA(30, 30, 30, 0.9);;
+background: linear-gradient(90deg, rgb(28, 28, 28) 0%, rgb(0, 8, 32) 50%, rgb(26, 26, 26) 100%);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid #333;
   display: flex;
