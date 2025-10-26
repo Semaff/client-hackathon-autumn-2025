@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import VideoRoom from "./pages/VideoRoom";
 import GuestJoin from "./pages/GuestJoin";
+import Header from "./components/Header";
 import { WelcomeOverlay } from "./components/WelcomeOverlay";
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
   return (
     <HashRouter>
       <div className="app-container">
-        {/* 👇 Welcome Overlay поверх всего приложения */}
+        <Header />
         <WelcomeOverlay />
 
         <Routes>
