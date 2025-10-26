@@ -13,7 +13,7 @@ function Register({ onRegister }) {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError("Пароли не совпадают");
       return;
     }
 
@@ -44,7 +44,7 @@ function Register({ onRegister }) {
           onRegister(loginData.user, loginData.token);
         }
       } else {
-        setError(data.error || "Registration failed");
+        setError(data.error || "Ошибка регистрации");
       }
     } catch (err) {
       console.error(err);
@@ -57,12 +57,12 @@ function Register({ onRegister }) {
   return (
     <div className="auth-page">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Register</h2>
+        <h2>Регистрация</h2>
 
         {error && <div className="error-message">{error}</div>}
 
         <div className="form-group">
-          <label>Username</label>
+          <label>Имя</label>
           <input
             type="text"
             value={username}
@@ -73,7 +73,7 @@ function Register({ onRegister }) {
         </div>
 
         <div className="form-group">
-          <label>Password</label>
+          <label>Пароль</label>
           <input
             type="password"
             value={password}
@@ -84,7 +84,7 @@ function Register({ onRegister }) {
         </div>
 
         <div className="form-group">
-          <label>Confirm Password</label>
+          <label>Повторите пароль</label>
           <input
             type="password"
             value={confirmPassword}
@@ -95,11 +95,11 @@ function Register({ onRegister }) {
         </div>
 
         <button type="submit" className="btn" disabled={loading}>
-          {loading ? "Registering..." : "Register"}
+          {loading ? "Регистрируем..." : "Регистрация"}
         </button>
 
         <div className="auth-link">
-          Already have an account? <Link to="/login">Login</Link>
+          Уже есть аккаунт? <Link to="/login">Вход</Link>
         </div>
       </form>
     </div>

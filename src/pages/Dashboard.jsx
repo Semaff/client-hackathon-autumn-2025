@@ -55,17 +55,17 @@ function Dashboard({ user, setUser, token, onLogout }) {
   const copyRoomLink = (roomId) => {
     const link = `${window.location.origin}/guest/${roomId}`;
     navigator.clipboard.writeText(link);
-    alert("Room link copied to clipboard!");
+    alert("Ссылка скопирована!");
   };
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Welcome, {user.username}!</h1>
+        <h1>Привет, {user.username}!</h1>
         <div className="dashboard-header-btns">
           <button onClick={() => setShowProfile(!showProfile)} className="btn --not-w-full">Профиль</button>
           <button onClick={onLogout} className="btn-secondary">
-            Logout
+            Выход
           </button>
         </div>
       </div>
@@ -75,38 +75,38 @@ function Dashboard({ user, setUser, token, onLogout }) {
       )}
 
       <div className="create-room-section">
-        <h2>Create New Room</h2>
+        <h2>Создать комнату</h2>
         <form onSubmit={handleCreateRoom} className="create-room-form">
           <input
             type="text"
-            placeholder="Enter room name..."
+            placeholder="Введите имя комнаты..."
             value={roomName}
             onChange={(e) => setRoomName(e.target.value)}
             disabled={loading}
           />
           <button type="submit" className="btn" disabled={loading}>
-            {loading ? "Creating..." : "Create Room"}
+            {loading ? "Создание..." : "Создать комнату"}
           </button>
         </form>
       </div>
 
       <div className="rooms-list">
-        <h2>Your Rooms</h2>
+        <h2>Ваши комнаты</h2>
         {rooms.length === 0 ? (
-          <p style={{ color: "#999" }}>No rooms yet. Create your first room!</p>
+          <p style={{ color: "#999" }}>Пока комнат нет. Создайте свою первую!</p>
         ) : (
           rooms.map((room) => (
             <div key={room.id} className="room-item">
               <div className="room-info">
                 <h3>{room.name}</h3>
-                <p>Created: {new Date(room.created_at).toLocaleDateString()}</p>
+                <p>Создана: {new Date(room.created_at).toLocaleDateString()}</p>
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
                 <button onClick={() => copyRoomLink(room.id)} className="btn-secondary">
-                  Copy Link
+                  Скопировать ссылку
                 </button>
                 <a href={`/room/${room.id}`} className="room-link">
-                  Join Room
+                  Присоединиться
                 </a>
               </div>
             </div>

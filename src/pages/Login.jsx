@@ -39,12 +39,12 @@ function Login({ onLogin }) {
   return (
     <div className="auth-page">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>Вход</h2>
 
         {error && <div className="error-message">{error}</div>}
 
         <div className="form-group">
-          <label>Username</label>
+          <label>Имя</label>
           <input
             type="text"
             value={username}
@@ -55,7 +55,7 @@ function Login({ onLogin }) {
         </div>
 
         <div className="form-group">
-          <label>Password</label>
+          <label>Пароль</label>
           <input
             type="password"
             value={password}
@@ -66,11 +66,11 @@ function Login({ onLogin }) {
         </div>
 
         <button type="submit" className="btn" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "Входим..." : "Вход"}
         </button>
 
         <div className="auth-link">
-          Don't have an account? <Link to="/register">Register</Link>
+          Нет аккауна? <Link to="/register">Регистрация</Link>
         </div>
       </form>
     </div>

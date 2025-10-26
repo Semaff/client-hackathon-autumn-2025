@@ -50,9 +50,9 @@ function VideoRoom() {
     <div className="video-room">
       <div className="video-room-header">
         <div className="room-title">
-          <h2>{roomInfo?.name || "Loading..."}</h2>
+          <h2>{roomInfo?.name || "Загрузка..."}</h2>
           <span className="participant-count">
-            {participants.length} participant{participants.length !== 1 ? "s" : ""}
+            {participants.length} participant{participants.length !== 1 ? "ов" : ""}
           </span>
         </div>
 
@@ -67,7 +67,7 @@ function VideoRoom() {
             <MessageSquare />
           </button>
           <button onClick={() => navigate("/")} className="leave-btn">
-            Leave Room
+            Выйти
           </button>
         </div>
       </div>

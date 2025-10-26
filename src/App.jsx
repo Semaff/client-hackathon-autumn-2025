@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, HashRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -34,7 +34,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <HashRouter>
       <div className="app-container">
         <Routes>
           {user ? (
@@ -54,7 +54,7 @@ function App() {
           <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
         </Routes>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 

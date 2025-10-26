@@ -35,26 +35,26 @@ function GuestJoin() {
   };
 
   if (loading) {
-    return <div className="loading">Loading room...</div>;
+    return <div className="loading">Комната загружается...</div>;
   }
 
   if (!roomInfo) {
-    return <div className="loading">Room not found. Please check the link and try again.</div>;
+    return <div className="loading">Комната не найдена. Проверьте ссылку и попробуйте еще раз.</div>;
   }
 
   return (
     <div className="guest-join-page">
       <form className="guest-join-form" onSubmit={handleJoin}>
-        <h2>Join Room</h2>
+        <h2>Присоединиться к комнате</h2>
         <p>
-          You're joining: <strong>{roomInfo.name}</strong>
+          Вы присоединяетесь к: <strong>{roomInfo.name}</strong>
         </p>
 
         <div className="form-group">
-          <label>Your Name</label>
+          <label>Ваше имя</label>
           <input
             type="text"
-            placeholder="Enter your name..."
+            placeholder="Введите ваше имя..."
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
             required
@@ -62,7 +62,7 @@ function GuestJoin() {
         </div>
 
         <button type="submit" className="btn">
-          Join as Guest
+          Присоединиться как Гость
         </button>
       </form>
     </div>
