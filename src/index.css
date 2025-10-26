@@ -888,6 +888,7 @@ body {
 
 /* === Welcome Overlay === */
 .welcome-overlay {
+  overflow: auto;
   position: fixed;
   inset: 0;
   background: rgba(20, 20, 20, 0.92);
