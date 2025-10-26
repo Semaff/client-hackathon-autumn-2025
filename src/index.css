@@ -9,7 +9,8 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('1.jpg');
+  background: #020024;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(13, 50, 61, 1) 100%);
   background-size: contain;
   color: #ffffff;
 }
@@ -745,7 +746,7 @@ body {
 .profile-form {
   display: flex;
   flex-direction: column;
-   justify-self: end;
+  justify-self: end;
   height: 100%;
   gap: 10px;
   padding: 16px;
@@ -988,6 +989,7 @@ body {
     transform: scale(0.95);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -1015,6 +1017,7 @@ body {
   right: 0;
   height: 64px;
   background: rgba(30, 30, 30, 0.9);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(54, 52, 52, 0.9) 100%);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid #333;
   display: flex;
@@ -1060,6 +1063,7 @@ body {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
