@@ -13,7 +13,7 @@ export function useConference() {
   const readyQueue = useRef([]);
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:8080");
+    ws.current = new WebSocket(import.meta.env.VITE_WS_URL);
 
     ws.current.onmessage = async (e) => {
       const data = JSON.parse(e.data);
